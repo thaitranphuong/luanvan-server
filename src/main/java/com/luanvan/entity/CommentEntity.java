@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,6 +31,7 @@ public class CommentEntity {
 	private int star;
 	private Date time;
 	private String image;
+	@CreationTimestamp
 	private Date createdTime;
 	
 	@ManyToOne

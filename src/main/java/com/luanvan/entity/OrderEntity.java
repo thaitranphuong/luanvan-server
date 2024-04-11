@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.luanvan.enums.OrderStatus;
 import com.luanvan.enums.PaymentMethod;
 
@@ -25,7 +28,9 @@ public class OrderEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@CreationTimestamp
 	private Date createdTime;
+	@UpdateTimestamp
 	private Date updatedTime;
 	private OrderStatus status;
 	private String note;

@@ -23,7 +23,7 @@ import com.luanvan.service.BrandService;
 import com.luanvan.service.CategoryService;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin
 @RequestMapping("/brand")
 public class BrandController {
 	@Autowired

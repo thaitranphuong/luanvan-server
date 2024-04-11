@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,7 +39,9 @@ public class ProductEntity {
 	private int soldQuantity;
 	private int percentDiscount;
 	private boolean enabled = true;
+	@CreationTimestamp
 	private Date createdTime;
+	@UpdateTimestamp
 	private Date updatedTime;
 	
 	@ManyToOne

@@ -21,7 +21,7 @@ import com.luanvan.entity.CategoryEntity;
 import com.luanvan.service.CategoryService;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin
 @RequestMapping("/category")
 public class CategoryController {
 	

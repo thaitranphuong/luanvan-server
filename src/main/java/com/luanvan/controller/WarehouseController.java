@@ -20,7 +20,7 @@ import com.luanvan.dto.pagination.WarehouseOutput;
 import com.luanvan.service.WarehouseService;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin
 @RequestMapping("/warehouse")
 public class WarehouseController {
 	@Autowired

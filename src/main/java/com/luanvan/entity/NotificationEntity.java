@@ -2,6 +2,8 @@ package com.luanvan.entity;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,6 +27,7 @@ public class NotificationEntity {
 	private String content;
 	private boolean isRead;
 	private String image;
+	@CreationTimestamp
 	private Date createdTime;
 	
 	@ManyToOne

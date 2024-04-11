@@ -16,8 +16,9 @@ public class UserDTO {
 	private boolean gender;
 	private String avatar;
 	private String password;
-	private boolean enabled;
+	private boolean enabled = true;
 	private String role;
+	private Long roleId;
 	
 	public Long getId() {
 		return id;
@@ -86,6 +87,15 @@ public class UserDTO {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public Long getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 	
 	

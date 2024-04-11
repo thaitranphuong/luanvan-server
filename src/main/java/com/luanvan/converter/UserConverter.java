@@ -3,8 +3,6 @@ package com.luanvan.converter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -24,6 +22,14 @@ public class UserConverter {
 		userEntity.setPhone(userDTO.getPhone());
 		userEntity.setAvatar(userDTO.getAvatar());
 		userEntity.setPassword(pwdEncoder.encode(userDTO.getPassword()));
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date date;
+		try {
+			date = formatter.parse(userDTO.getBirthday());
+		} catch (ParseException e) {
+			date = new Date(0);
+		}
+		userEntity.setBirthday(date);
 		return userEntity;
 	}
 	
@@ -37,7 +43,9 @@ public class UserConverter {
 		userDTO.setGender(userEntity.isGender());
 		userDTO.setPhone(userEntity.getPhone());
 		userDTO.setRole(userEntity.getRole().getName());
+		userDTO.setRoleId(userEntity.getRole().getId());
 		userDTO.setAvatar(userEntity.getAvatar());
+		userDTO.setEnabled(userEntity.isEnabled());
 		return userDTO;
 	}
 	
@@ -56,6 +64,7 @@ public class UserConverter {
 		userEntity.setGender(userDTO.isGender());
 		userEntity.setPhone(userDTO.getPhone());
 		userEntity.setAvatar(userDTO.getAvatar());
+		userEntity.setEnabled(userDTO.isEnabled());
 		return userEntity;
 	}
 }

@@ -6,7 +6,6 @@ import com.luanvan.entity.BrandEntity;
 public class BrandConverter {
 	public static BrandEntity toEntity(BrandDTO brandDTO) {
 		BrandEntity brandEntity = new BrandEntity();
-		brandEntity.setId(brandDTO.getId());
 		brandEntity.setName(brandDTO.getName());
 		brandEntity.setCode(brandDTO.getCode());
 		return brandEntity;

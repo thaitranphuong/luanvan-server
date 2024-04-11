@@ -6,7 +6,6 @@ import com.luanvan.entity.SupplierEntity;
 public class SupplierConverter {
 	public static SupplierEntity toEntity(SupplierDTO dto) {
 		SupplierEntity entity = new SupplierEntity();
-		entity.setId(dto.getId());
 		entity.setName(dto.getName());
 		entity.setAddress(dto.getAddress());
         entity.setEmail(dto.getEmail());

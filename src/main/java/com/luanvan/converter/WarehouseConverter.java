@@ -6,7 +6,6 @@ import com.luanvan.entity.WarehouseEntity;
 public class WarehouseConverter {
 	public static WarehouseEntity toEntity(WarehouseDTO warehouseDTO) {
 		WarehouseEntity warehouseEntity = new WarehouseEntity();
-		warehouseEntity.setId(warehouseDTO.getId());
 		warehouseEntity.setName(warehouseDTO.getName());
 		warehouseEntity.setAddress(warehouseDTO.getAddress());
 		return warehouseEntity;

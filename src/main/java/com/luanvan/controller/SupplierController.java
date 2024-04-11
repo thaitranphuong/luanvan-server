@@ -20,7 +20,7 @@ import com.luanvan.dto.pagination.SupplierOutput;
 import com.luanvan.service.SupplierService;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin
 @RequestMapping("/supplier")
 public class SupplierController {
 	@Autowired
@@ -61,7 +61,7 @@ public class SupplierController {
 	}
 	
 	@GetMapping("/get-all")
-	public List<SupplierDTO> getAllCategories() {
+	public List<SupplierDTO> getAllSuppliers() {
 		return supplierService.findAll();
 	}
 	

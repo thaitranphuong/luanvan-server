@@ -43,6 +43,9 @@ public class WebSecurityConfig {
         .authorizeHttpRequests(request -> request
 				.requestMatchers("/").permitAll()
 				.requestMatchers("/auth/**").permitAll()
+				.requestMatchers("/getimage/**").permitAll()
+				.requestMatchers("/ws/**").permitAll()
+				.requestMatchers("/user-chat/**").permitAll()
 				.requestMatchers("/admin/**").hasAnyRole("ADMIN", "SALER")
 				.anyRequest().authenticated()
         );
