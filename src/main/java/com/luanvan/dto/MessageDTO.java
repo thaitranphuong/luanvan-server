@@ -9,6 +9,7 @@ public class MessageDTO {
 	private Date createdTime;
 	private Long senderId;
 	private String senderName;
+	private String avatar;
 	private Long receiverId;
 	
 	public Long getId() {
@@ -52,6 +53,12 @@ public class MessageDTO {
 	}
 	public void setSenderName(String senderName) {
 		this.senderName = senderName;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 	
 	

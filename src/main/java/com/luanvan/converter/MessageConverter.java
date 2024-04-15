@@ -34,6 +34,7 @@ public class MessageConverter {
         dto.setSenderId(entity.getSender().getId());
         dto.setReceiverId(entity.getReceiver().getId());
         dto.setSenderName(entity.getSender().getName());
+        dto.setAvatar(entity.getSender().getAvatar());
 		return dto;
 	}
 	
