@@ -16,6 +16,7 @@ public class TopicConverter {
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
 		dto.setCode(entity.getCode());
+		dto.setBlogQuantity(entity.getBlogs().size());
 		return dto;
 	}
 	

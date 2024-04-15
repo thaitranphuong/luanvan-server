@@ -20,9 +20,12 @@ import com.luanvan.converter.SupplierConverter;
 import com.luanvan.dto.ProductDTO;
 import com.luanvan.dto.ProductDetailDTO;
 import com.luanvan.dto.ProductDetailSizeDTO;
+import com.luanvan.dto.ProductRateDTO;
 import com.luanvan.dto.SupplierDTO;
+import com.luanvan.entity.CommentEntity;
 import com.luanvan.entity.ProductEntity;
 import com.luanvan.entity.SupplierEntity;
+import com.luanvan.repository.CommentRepository;
 import com.luanvan.repository.ProductRepository;
 import com.luanvan.service.ProductDetailService;
 import com.luanvan.service.ProductService;
@@ -40,6 +43,9 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Autowired
 	private ProductConverter productConverter;
+	
+	@Autowired
+	private CommentRepository commentRepository;
 
 	@Override
 	public Long save(ProductDTO product, MultipartFile thumbnail) {
@@ -51,6 +57,80 @@ public class ProductServiceImpl implements ProductService{
 		} catch (IOException e) {
 			return null;
 		}
+	}
+	
+	@Override
+	public List<ProductDTO> findAllCustomerPage(int page, int limit, String strCategoryId, String strBrandId) {
+		List<ProductEntity> entities = new ArrayList<>();
+		if(!strCategoryId.equals("none") && !strBrandId.equals("none")) {
+			entities = productRepository.findAllByCategoryAndBrand(page, limit, strCategoryId, strBrandId);
+		} else if(strCategoryId.equals("none") && !strBrandId.equals("none")) {
+			entities = productRepository.findAllByBrand(page, limit, strBrandId);
+		} else if(!strCategoryId.equals("none") && strBrandId.equals("none")) {
+			entities = productRepository.findAllByCategory(page, limit, strCategoryId);
+		} else {
+			entities = productRepository.findAllCustomerPage(page, limit);
+		}
+		List<ProductDTO> DTOs = new ArrayList<>();
+		for(ProductEntity item: entities) {
+			ProductDTO dto = productConverter.toDTO(item);
+			if (item.getProductDetails().size() > 0)
+				dto.setShowedPrice(item.getProductDetails().get(0).getPrice());
+			DTOs.add(dto);
+		}
+		return DTOs;
+	}
+
+	@Override
+	public List<ProductDTO> findAllCustomerPage(int page, int limit, String name, String strCategoryId, String strBrandId) {
+		List<ProductEntity> entities = new ArrayList<>();
+		if(!strCategoryId.equals("none") && !strBrandId.equals("none")) {
+			entities = productRepository.findAllByCategoryAndBrand(name, page, limit, strCategoryId, strBrandId);
+		} else if(strCategoryId.equals("none") && !strBrandId.equals("none")) {
+			entities = productRepository.findAllByBrand(name, page, limit, strBrandId);
+		} else if(!strCategoryId.equals("none") && strBrandId.equals("none")) {
+			entities = productRepository.findAllByCategory(name, page, limit, strCategoryId);
+		} else {
+			entities = productRepository.findAllCustomerPage(name, page, limit);
+		}
+		List<ProductDTO> DTOs = new ArrayList<>();
+		for(ProductEntity item: entities) {
+			ProductDTO dto = productConverter.toDTO(item);
+			if (item.getProductDetails().size() > 0)
+				dto.setShowedPrice(item.getProductDetails().get(0).getPrice());
+			DTOs.add(dto);
+		}
+		return DTOs;
+	}
+
+	@Override
+	public int totalItemCustomerPage(String strCategoryId, String strBrandId) {
+		List<ProductEntity> entities = new ArrayList<>();
+		if(!strCategoryId.equals("none") && !strBrandId.equals("none")) {
+			entities = productRepository.findAllByCategoryAndBrand(strCategoryId, strBrandId);
+		} else if(strCategoryId.equals("none") && !strBrandId.equals("none")) {
+			entities = productRepository.findAllByBrand(strBrandId);
+		} else if(!strCategoryId.equals("none") && strBrandId.equals("none")) {
+			entities = productRepository.findAllByCategory(strCategoryId);
+		} else {
+			entities = productRepository.findAllCustomerPage();
+		}
+		return entities.size();
+	}
+
+	@Override
+	public int totalItemCustomerPage(String name, String strCategoryId, String strBrandId) {
+		List<ProductEntity> entities = new ArrayList<>();
+		if(!strCategoryId.equals("none") && !strBrandId.equals("none")) {
+			entities = productRepository.findAllByCategoryAndBrand(name, strCategoryId, strBrandId);
+		} else if(strCategoryId.equals("none") && !strBrandId.equals("none")) {
+			entities = productRepository.findAllByBrand(name, strBrandId);
+		} else if(!strCategoryId.equals("none") && strBrandId.equals("none")) {
+			entities = productRepository.findAllByCategory(name, strCategoryId);
+		} else {
+			entities = productRepository.findAllCustomerPage(name);
+		}
+		return entities.size();
 	}
 	
 	@Override
@@ -77,14 +157,14 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public int totalItem() {
-		List<ProductEntity> result = productRepository.findAll();
-		return result.size();
+		List<ProductEntity> entities = productRepository.findAll();
+		return entities.size();
 	}
 
 	@Override
 	public int totalItem(String name) {
-		List<ProductEntity> result = productRepository.findAll(name);
-		return result.size();
+		List<ProductEntity> entities = productRepository.findAll(name);
+		return entities.size();
 	}
 	
 	@Override
@@ -105,6 +185,8 @@ public class ProductServiceImpl implements ProductService{
 				productDetailDTOs.add(productDetailDTO);
 			});
 			dto.setListProductDetail(productDetailDTOs);
+			if (productEntity.getProductDetails().size() > 0)
+				dto.setShowedPrice(productEntity.getProductDetails().get(0).getPrice());
 		} else {
 			dto = new ProductDTO();
 		}
@@ -130,6 +212,71 @@ public class ProductServiceImpl implements ProductService{
 			productRepository.save(entity);
 		}
 	}
+
+	@Override
+	public List<ProductDTO> findBestSales() {
+		List<ProductEntity> entities  =  productRepository.findBestSales();
+		List<ProductDTO> DTOs = new ArrayList<>();
+		for(ProductEntity item: entities) {
+			ProductDTO dto = productConverter.toDTO(item);
+			if (item.getProductDetails().size() > 0)
+				dto.setShowedPrice(item.getProductDetails().get(0).getPrice());
+			DTOs.add(dto);
+		}
+		return DTOs;
+	}
 	
+	@Override
+	public List<ProductDTO> findNewProducts() {
+		List<ProductEntity> entities  =  productRepository.findNewProducts();
+		List<ProductDTO> DTOs = new ArrayList<>();
+		for(ProductEntity item: entities) {
+			ProductDTO dto = productConverter.toDTO(item);
+			if (item.getProductDetails().size() > 0)
+				dto.setShowedPrice(item.getProductDetails().get(0).getPrice());
+			DTOs.add(dto);
+		}
+		return DTOs;
+	}
+
+	int oneStarQuantity = 0;
+	int twoStarQuantity = 0;
+	int threeStarQuantity = 0;
+	int fourStarQuantity = 0;
+	int fiveStarQuantity = 0;
+	float averageStar = 0f;
+	int commentQuantity = 0;
+
+	@Override
+	public ProductRateDTO findRate(Long id) {
+		List<CommentEntity> comments = commentRepository.findAllByProductId(String.valueOf(id));
+		comments.forEach(item -> {
+			int star = item.getStar();
+			if (star == 1) oneStarQuantity++;
+			else if (star == 2) twoStarQuantity++;
+			else if (star == 3) threeStarQuantity++;
+			else if (star == 4) fourStarQuantity++;
+			else fiveStarQuantity++;
+		});
+		commentQuantity = comments.size();
+		averageStar = (float)(1*oneStarQuantity + 2*twoStarQuantity + 3*threeStarQuantity 
+				+ 4*fourStarQuantity + 5*fiveStarQuantity)/commentQuantity;
+		ProductRateDTO dto = new ProductRateDTO();
+		dto.setAverageStar(averageStar);
+		dto.setCommentQuantity(commentQuantity);
+		dto.setOneStarQuantity(oneStarQuantity);
+		dto.setTwoStarQuantity(twoStarQuantity);
+		dto.setThreeStarQuantity(threeStarQuantity);
+		dto.setFourStarQuantity(fourStarQuantity);
+		dto.setFiveStarQuantity(fiveStarQuantity);
+		oneStarQuantity = 0;
+		twoStarQuantity = 0;
+		threeStarQuantity = 0;
+		fourStarQuantity = 0;
+		fiveStarQuantity = 0;
+		averageStar = 0f;
+		commentQuantity = 0;
+		return dto;
+	}
 
 }

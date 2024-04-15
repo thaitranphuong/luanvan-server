@@ -4,6 +4,7 @@ public class TopicDTO {
 	private Long id;
 	private String name;
 	private String code;
+	private int blogQuantity;
 	
 	public Long getId() {
 		return id;
@@ -22,6 +23,12 @@ public class TopicDTO {
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+	public int getBlogQuantity() {
+		return blogQuantity;
+	}
+	public void setBlogQuantity(int blogQuantity) {
+		this.blogQuantity = blogQuantity;
 	}
 	
 	

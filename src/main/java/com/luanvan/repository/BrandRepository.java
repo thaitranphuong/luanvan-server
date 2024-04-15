@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.luanvan.entity.BrandEntity;
 
-public interface BrandRepository  extends JpaRepository<BrandEntity, Long>{
+public interface BrandRepository extends JpaRepository<BrandEntity, Long>{
 	@Query(value = "SELECT * FROM brands c WHERE c.name LIKE %?1%", nativeQuery = true)
 	List<BrandEntity> findAll(String name);
 	

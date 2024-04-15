@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ import com.luanvan.dto.BrandDTO;
 import com.luanvan.dto.ErrorResponse;
 import com.luanvan.dto.ImageDTO;
 import com.luanvan.dto.ProductDTO;
+import com.luanvan.dto.ProductRateDTO;
 import com.luanvan.dto.SuccessResponse;
 import com.luanvan.dto.pagination.BrandOutput;
 import com.luanvan.dto.pagination.ProductOutput;
@@ -58,7 +60,7 @@ public class ProductController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public ImageDTO saveImageFulldescription(@RequestPart("image") MultipartFile image) throws IOException {
 		if(image.isEmpty()) return null;
-		Path path = Paths.get("src/main/resources/static/product_fulldescriptions/");
+		Path path = Paths.get("src/main/resources/static/ckeditor_images/");
 		InputStream inputStream = image.getInputStream();
 		Files.copy(inputStream, path.resolve(image.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
 		ImageDTO result = new ImageDTO();
@@ -66,7 +68,26 @@ public class ProductController {
 		return result;
 	}
 	
+	@GetMapping("/customer-page")
+	@PreAuthorize("hasRole('CUSTOMER')")
+	public ProductOutput getProducts(@RequestParam(name = "page") int page, @RequestParam(name = "limit") int limit,
+			@RequestParam(name = "name", defaultValue = "none") String name,
+			@RequestParam(name = "categoryId", defaultValue = "none") String strCategoryId,
+			@RequestParam(name = "brandId", defaultValue = "none") String strBrandId) {
+		ProductOutput result = new ProductOutput();
+		result.setPage(page);
+		if (!name.equals("none")) {
+			result.setListResult(productService.findAllCustomerPage((page - 1) * limit, limit, name, strCategoryId, strBrandId));
+			result.setTotalPage((int) Math.ceil((double) productService.totalItemCustomerPage(name, strCategoryId, strBrandId) / limit));
+		} else {
+			result.setListResult(productService.findAllCustomerPage((page - 1) * limit, limit, strCategoryId, strBrandId));
+			result.setTotalPage((int) Math.ceil((double) productService.totalItemCustomerPage(strCategoryId, strBrandId) / limit));
+		}
+		return result;
+	}
+	
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ProductOutput getProducts(@RequestParam(name = "page") int page, @RequestParam(name = "limit") int limit,
 			@RequestParam(name = "name", defaultValue = "none") String name) {
 		ProductOutput result = new ProductOutput();
@@ -78,6 +99,18 @@ public class ProductController {
 			result.setListResult(productService.findAll((page - 1) * limit, limit));
 			result.setTotalPage((int) Math.ceil((double) productService.totalItem() / limit));
 		}
+		return result;
+	}
+	
+	@GetMapping("/get-best-sales")
+	public List<ProductDTO> getBestSales() {
+		List<ProductDTO> result = productService.findBestSales();
+		return result;
+	}
+	
+	@GetMapping("/get-new-products")
+	public List<ProductDTO> getNewProducts() {
+		List<ProductDTO> result = productService.findNewProducts();
 		return result;
 	}
 	
@@ -105,5 +138,10 @@ public class ProductController {
 		if (result)
 			return ResponseEntity.ok(new SuccessResponse());
 		return ResponseEntity.badRequest().body(new ErrorResponse());
+	}
+	
+	@GetMapping("/get-rate/{id}")
+	public ProductRateDTO getRate(@PathVariable Long id) {
+		return productService.findRate(id);
 	}
 }

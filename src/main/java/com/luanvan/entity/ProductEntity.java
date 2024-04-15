@@ -53,9 +53,6 @@ public class ProductEntity {
 	private BrandEntity brand;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
-	private List<CartItemEntity> cartItems = new ArrayList<>();
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
 	private List<CommentEntity> comments = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
@@ -171,14 +168,6 @@ public class ProductEntity {
 
 	public void setBrand(BrandEntity brand) {
 		this.brand = brand;
-	}
-
-	public List<CartItemEntity> getCartItems() {
-		return cartItems;
-	}
-
-	public void setCartItems(List<CartItemEntity> cartItems) {
-		this.cartItems = cartItems;
 	}
 
 	public List<CommentEntity> getComments() {

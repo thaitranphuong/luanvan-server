@@ -14,6 +14,8 @@ public class ProductDTO {
 	private int percentDiscount = 0;
 	private boolean enabled = true;
 	
+	private double showedPrice = 0;
+	
 	private Long categoryId;
 	private String categoryName;
 	private Long brandId;
@@ -110,6 +112,12 @@ public class ProductDTO {
 	}
 	public void setListProductDetail(List<ProductDetailDTO> listProductDetail) {
 		this.listProductDetail = listProductDetail;
+	}
+	public double getShowedPrice() {
+		return showedPrice;
+	}
+	public void setShowedPrice(double showedPrice) {
+		this.showedPrice = showedPrice;
 	}
 	
 	

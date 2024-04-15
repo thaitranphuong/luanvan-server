@@ -30,6 +30,9 @@ public class ProductDetailSizeEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "productDetailSize", orphanRemoval = true)
 	private List<ImportDetailEntity> importDetails = new ArrayList<>();
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
+	private List<CartItemEntity> cartItems = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -69,6 +72,14 @@ public class ProductDetailSizeEntity {
 
 	public void setImportDetails(List<ImportDetailEntity> importDetails) {
 		this.importDetails = importDetails;
+	}
+
+	public List<CartItemEntity> getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(List<CartItemEntity> cartItems) {
+		this.cartItems = cartItems;
 	}
 	
 	

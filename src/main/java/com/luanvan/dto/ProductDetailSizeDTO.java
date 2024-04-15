@@ -5,6 +5,10 @@ public class ProductDetailSizeDTO {
 	private String size;
 	private int quantity = 0;
 	private Long productDetailId;
+	private String productImage;
+	private String productName;
+	private String productColor;
+	private double price;
 	
 	public Long getId() {
 		return id;

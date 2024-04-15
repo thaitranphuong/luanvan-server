@@ -8,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,13 +22,9 @@ public class CommentEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	private String title;
-	
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	private int star;
-	private Date time;
 	private String image;
 	@CreationTimestamp
 	private Date createdTime;
@@ -57,14 +52,6 @@ public class CommentEntity {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public String getContent() {
 		return content;
 	}
@@ -79,14 +66,6 @@ public class CommentEntity {
 
 	public void setStar(int star) {
 		this.star = star;
-	}
-
-	public Date getTime() {
-		return time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
 	}
 
 	public String getImage() {

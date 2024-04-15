@@ -49,7 +49,7 @@ public class ImageController {
 	
 	@PostMapping("/uploadimage/{directory}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<?>  updateThumbnail(@PathVariable("directory") String directory, @RequestPart("image") MultipartFile image) {
+	public ResponseEntity<?>  updateImage(@PathVariable("directory") String directory, @RequestPart("image") MultipartFile image) {
 		boolean result = fileService.save(directory, image);
 		if (result)
 			return ResponseEntity.ok(new SuccessResponse());

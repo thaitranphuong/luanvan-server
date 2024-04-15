@@ -25,8 +25,9 @@ public class VoucherEntity {
 	
 	private String name;
 	private double _index;
+	private double maxDiscount;
 	private int quantity;
-	private int remainingQuanity;
+	private int remainingQuantity;
 	private Date startTime;
 	private Date endTime;
 	private VoucherCategory category;
@@ -70,12 +71,12 @@ public class VoucherEntity {
 		this.quantity = quantity;
 	}
 
-	public int getRemainingQuanity() {
-		return remainingQuanity;
+	public int getRemainingQuantity() {
+		return remainingQuantity;
 	}
 
-	public void setRemainingQuanity(int remainingQuanity) {
-		this.remainingQuanity = remainingQuanity;
+	public void setRemainingQuantity(int remainingQuantity) {
+		this.remainingQuantity = remainingQuantity;
 	}
 
 	public Date getStartTime() {
@@ -124,6 +125,14 @@ public class VoucherEntity {
 
 	public void setOrders(List<OrderEntity> orders) {
 		this.orders = orders;
+	}
+
+	public double getMaxDiscount() {
+		return maxDiscount;
+	}
+
+	public void setMaxDiscount(double maxDiscount) {
+		this.maxDiscount = maxDiscount;
 	}
 	
 	

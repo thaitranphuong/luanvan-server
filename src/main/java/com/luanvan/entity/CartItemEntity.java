@@ -24,7 +24,7 @@ public class CartItemEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "product_id")
-	private ProductEntity product;
+	private ProductDetailSizeEntity product;
 
 	public Long getId() {
 		return id;
@@ -50,13 +50,15 @@ public class CartItemEntity {
 		this.user = user;
 	}
 
-	public ProductEntity getProduct() {
+	public ProductDetailSizeEntity getProduct() {
 		return product;
 	}
 
-	public void setProduct(ProductEntity product) {
+	public void setProduct(ProductDetailSizeEntity product) {
 		this.product = product;
 	}
+
+	
 	
 	
 }

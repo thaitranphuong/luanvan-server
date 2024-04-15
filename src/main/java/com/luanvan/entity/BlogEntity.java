@@ -10,7 +10,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,7 +35,7 @@ public class BlogEntity {
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	private String code;
-	private String view;
+	private int view;
 	@CreationTimestamp
 	private Date createdAt;
 	@UpdateTimestamp
@@ -101,11 +100,11 @@ public class BlogEntity {
 		this.code = code;
 	}
 
-	public String getView() {
+	public int getView() {
 		return view;
 	}
 
-	public void setView(String view) {
+	public void setView(int view) {
 		this.view = view;
 	}
 
