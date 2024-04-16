@@ -60,9 +60,6 @@ public class UserEntity {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
 	private List<AddressEntity> addresses = new ArrayList<>();
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
-	private List<OrderEntity> orders = new ArrayList<>();
-	
 	@OneToMany(mappedBy = "shipper")
 	private List<OrderEntity> ordersShipping = new ArrayList<>();
 	
@@ -215,14 +212,6 @@ public class UserEntity {
 
 	public void setAddresses(List<AddressEntity> addresses) {
 		this.addresses = addresses;
-	}
-
-	public List<OrderEntity> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<OrderEntity> orders) {
-		this.orders = orders;
 	}
 
 	public List<OrderEntity> getOrdersShipping() {

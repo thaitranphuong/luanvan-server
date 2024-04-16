@@ -36,10 +36,8 @@ public class OrderEntity {
 	private String note;
 	private PaymentMethod payment;
 	private String deliveryImage;
-	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private UserEntity user;
+	private double discountVoucher;
+	private double total;
 	
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "shipper_id")
@@ -116,14 +114,6 @@ public class OrderEntity {
 		this.deliveryImage = deliveryImage;
 	}
 
-	public UserEntity getUser() {
-		return user;
-	}
-
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
-
 	public UserEntity getShipper() {
 		return shipper;
 	}
@@ -162,6 +152,22 @@ public class OrderEntity {
 
 	public void setAddress(AddressEntity address) {
 		this.address = address;
+	}
+
+	public double getDiscountVoucher() {
+		return discountVoucher;
+	}
+
+	public void setDiscountVoucher(double discountVoucher) {
+		this.discountVoucher = discountVoucher;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 	
 	

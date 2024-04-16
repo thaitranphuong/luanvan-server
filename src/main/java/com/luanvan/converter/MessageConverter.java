@@ -15,8 +15,7 @@ public class MessageConverter {
 	
 	public MessageEntity toEntity(MessageDTO dto) {
 		MessageEntity entity = new MessageEntity();
-		entity.setContent(dto.getContent());
-		entity.setCreatedTime(dto.getCreatedTime());
+		entity.setContent(dto.getContent());	
 		entity.setRead(dto.isRead());
 		UserEntity sender = userRepository.findById(dto.getSenderId()).orElse(null);
 		entity.setSender(sender);

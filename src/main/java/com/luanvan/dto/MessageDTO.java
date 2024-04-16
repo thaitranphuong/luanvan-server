@@ -1,12 +1,13 @@
 package com.luanvan.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MessageDTO {
 	private Long id;
 	private String content;
 	private boolean isRead = false;
-	private Date createdTime;
+	private String createdTime;
 	private Long senderId;
 	private String senderName;
 	private String avatar;
@@ -30,11 +31,12 @@ public class MessageDTO {
 	public void setRead(boolean isRead) {
 		this.isRead = isRead;
 	}
-	public Date getCreatedTime() {
+	public String getCreatedTime() {
 		return createdTime;
 	}
 	public void setCreatedTime(Date createdTime) {
-		this.createdTime = createdTime;
+		SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
+		this.createdTime = formatter.format(createdTime);
 	}
 	public Long getSenderId() {
 		return senderId;
