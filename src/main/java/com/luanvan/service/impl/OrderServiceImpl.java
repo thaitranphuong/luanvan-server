@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import com.luanvan.converter.OrderConverter;
 import com.luanvan.dto.OrderDTO;
 import com.luanvan.entity.OrderEntity;
+import com.luanvan.entity.VoucherEntity;
 import com.luanvan.enums.OrderStatus;
 import com.luanvan.repository.OrderRepository;
+import com.luanvan.repository.VoucherRepository;
 import com.luanvan.service.OrderService;
 
 @Service
@@ -20,9 +22,17 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private VoucherRepository voucherRepository;
 
 	@Override
 	public Long save(OrderDTO order) {
+		if (order.getVoucherId() != null) {
+			VoucherEntity voucher = voucherRepository.findById(order.getVoucherId()).orElse(null);
+			voucher.setRemainingQuantity(voucher.getRemainingQuantity() - 1);
+			voucherRepository.save(voucher);
+		}
 		return orderRepository.save(orderConverter.toEntity(order)).getId();
 	}
 

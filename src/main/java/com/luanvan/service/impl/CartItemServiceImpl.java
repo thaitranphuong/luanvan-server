@@ -49,8 +49,7 @@ public class CartItemServiceImpl implements CartItemService{
 		entities.forEach(item -> {
 			DTOs.add(cartItemConverter.toDTO(item));
 		});
-		if (DTOs.size() > 0) return DTOs;
-		return null;
+		return DTOs;
 	}
 
 }

@@ -14,7 +14,8 @@ public interface VoucherRepository extends JpaRepository<VoucherEntity, Long>{
 	@Query(value = "SELECT * FROM vouchers c WHERE c.name LIKE %?1% and c.is_removed = false", nativeQuery = true)
 	List<VoucherEntity> findAll(String name);
 	
-	@Query(value = "SELECT * FROM vouchers c WHERE c.is_removed = false and c.id not in "
+	@Query(value = "SELECT * FROM vouchers c WHERE c.is_removed = false and c.remaining_quantity > 0"
+			+ " and c.start_time <= NOW() and c.end_time >= NOW() and c.id not in "
 			+ "(SELECT c.id FROM vouchers c LEFT JOIN user_voucher sc "
 			+ "ON c.id = sc.voucher_id WHERE sc.user_id = ?1)",
 				nativeQuery = true)
@@ -26,7 +27,8 @@ public interface VoucherRepository extends JpaRepository<VoucherEntity, Long>{
 	@Query(value = "SELECT * FROM vouchers c WHERE c.name LIKE %?1% and c.is_removed = false LIMIT ?3 OFFSET ?2", nativeQuery = true)
 	List<VoucherEntity> findAll(String name, int page, int limit);
 	
-	@Query(value = "SELECT * FROM vouchers c WHERE c.is_removed = false and c.id not in "
+	@Query(value = "SELECT * FROM vouchers c WHERE c.is_removed = false and c.remaining_quantity > 0 and c.start_time <= NOW()"
+			+ " and c.end_time >= NOW() and c.id not in "
 			+ "(SELECT c.id FROM vouchers c LEFT JOIN user_voucher sc "
 			+ "ON c.id = sc.voucher_id WHERE sc.user_id = ?1) LIMIT ?3 OFFSET ?2",
 				nativeQuery = true)
@@ -35,7 +37,8 @@ public interface VoucherRepository extends JpaRepository<VoucherEntity, Long>{
 	VoucherEntity findByName(String name);
 	
 	@Query(value = "SELECT * FROM vouchers c LEFT JOIN user_voucher sc "
-			+ "ON c.id = sc.voucher_id WHERE sc.user_id = ?1 and c.is_removed = false",
+			+ "ON c.id = sc.voucher_id WHERE sc.user_id = ?1 and c.is_removed = false"
+			+ " and c.remaining_quantity > 0 and c.start_time <= NOW() and c.end_time >= NOW()",
 				nativeQuery = true)
 	List<VoucherEntity> findAllByUserId(Long userId);
 }

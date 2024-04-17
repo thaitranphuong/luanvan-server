@@ -9,6 +9,7 @@ public class OrderItemDTO {
 	private String color;
 	private String size;
 	private Long orderId;
+	private Long cartItemId;
 	
 	public Long getId() {
 		return id;
@@ -58,6 +59,13 @@ public class OrderItemDTO {
 	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
+	public Long getCartItemId() {
+		return cartItemId;
+	}
+	public void setCartItemId(Long cartItemId) {
+		this.cartItemId = cartItemId;
+	}
+	
 	
 	
 }

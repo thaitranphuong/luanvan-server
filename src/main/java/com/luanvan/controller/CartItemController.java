@@ -41,8 +41,7 @@ public class CartItemController {
 	@GetMapping("/{customerId}")
 	public ResponseEntity<?> getCart(@PathVariable Long customerId) {
 		List<CartItemDTO> result = cartItemService.findByCustomerId(customerId);
-		if (result != null) return ResponseEntity.ok(result);
-		return ResponseEntity.badRequest().body(new ErrorResponse());
+		return ResponseEntity.ok(result);
 	}
 	
 	@PutMapping
