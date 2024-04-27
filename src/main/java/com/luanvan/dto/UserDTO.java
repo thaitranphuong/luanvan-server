@@ -12,7 +12,7 @@ public class UserDTO {
 	private String name;
 	private String phone;
 	private String address;
-	private String birthday;
+	private String birthday = "2000/01/01";
 	private boolean gender;
 	private String avatar;
 	private String password;

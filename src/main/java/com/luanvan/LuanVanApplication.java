@@ -67,6 +67,7 @@ public class LuanVanApplication implements ApplicationRunner {
 			admin = new UserDTO();
 			admin.setEmail("admin@gmail.com");
 			admin.setName("admin");
+			admin.setBirthday("2002/01/01");
 			admin.setPassword("12345");
 			admin.setAddress("123");
 			admin.setAvatar("123");
